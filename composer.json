@@ -1,0 +1,30 @@
+{
+    "name": "it-vision-pterodactyl/mod-manager",
+    "description": "Mod manager for Pterodactyl systems",
+    "type": "library",
+    "require": {
+        "php": "7.2.*",
+        "laravel/framework": "5.7.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Milivoje",
+            "email": "milivoje@it-vision.io"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "ItVision\\ModManager\\" : "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "ItVision\\ModManager\\ManagerServiceProvider"
+            ]
+        }
+    }
+}
+}

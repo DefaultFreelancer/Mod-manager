@@ -6,12 +6,12 @@ namespace ItVision\ModManager\http;
 
 use Illuminate\Http\Request;
 use ItVision\ModManager\models\ModModel;
+use ItVision\ModManager\Services\ModInstallService;
+use ItVision\ModManager\Services\ModRemoveService;
 use Prologue\Alerts\AlertsMessageBag;
 use Pterodactyl\Http\Controllers\Controller;
 use Pterodactyl\Models\Custom\Category;
 use Pterodactyl\Repositories\Daemon\ServerRepository;
-use Pterodactyl\Services\Servers\ModInstallService;
-use Pterodactyl\Services\Servers\ModRemoveService;
 use Pterodactyl\Traits\Controllers\JavascriptInjection;
 
 class ModController extends Controller
@@ -49,7 +49,7 @@ class ModController extends Controller
     public function index(Request $request)
     {
         $server = $request->attributes->get('server');
-//        $this->authorize('view-modmanager', $server);
+        $this->authorize('view-modmanager', $server);
         $this->setRequest($request)->injectJavascript();
 
         $categories = Category::all();

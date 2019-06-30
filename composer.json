@@ -2,10 +2,7 @@
     "name": "it-vision-pterodactyl/mod-manager",
     "description": "Mod manager for Pterodactyl systems",
     "type": "library",
-    "require": {
-        "php": "7.2.*",
-        "laravel/framework": "5.7.*"
-    },
+    "require": {},
     "license": "MIT",
     "authors": [
         {

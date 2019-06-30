@@ -4,6 +4,7 @@
 namespace ItVision\ModManager\http\admin;
 
 use Illuminate\Http\Request;
+use ItVision\ModManager\models\ModCategoryModel;
 use ItVision\ModManager\models\ModModel;
 use Prologue\Alerts\AlertsMessageBag;
 use Pterodactyl\Http\Controllers\Controller;
@@ -33,9 +34,9 @@ class AdminModController extends Controller
      */
     public function index()
     {
-        $mods = Mod::all();
+        $mods = ModModel::all();
 
-        return view('admin.modmanager.index', compact('mods'));
+        return view('modManager::mod.modAdminIndex', compact('mods'));
     }
 
     /**
@@ -45,8 +46,8 @@ class AdminModController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.modmanager.create', compact('categories'));
+        $categories = ModCategoryModel::all();
+        return view('modManager::mod.modAdminCreate', compact('categories'));
     }
 
     /**
@@ -57,6 +58,10 @@ class AdminModController extends Controller
      */
     public function store(Request $request)
     {
+//        echo "<pre>";
+//        print_r($request->all());
+//        print_r($request->input('name'));
+//        die;
 
         $this->validate($request, [
             'name' => 'required',
@@ -64,12 +69,11 @@ class AdminModController extends Controller
             'version' => 'required',
             'link' => 'required',
             'path' => 'required',
-            'category_id' => 'exists:categories,id',
+            'category_id' => 'exists:mod_categories,id',
             'author' => 'required',
             'game' => 'required',
             'foldername' => 'required'
         ]);
-
 
         ModModel::create([
             'name' => $request->input('name'),
@@ -83,7 +87,7 @@ class AdminModController extends Controller
             'foldername' => $request->input('foldername')
         ]);
 
-        return redirect()->route('mod.index');
+        return redirect('admin/mod');
     }
 
     /**
@@ -95,9 +99,8 @@ class AdminModController extends Controller
      */
     public function show(ModModel $mod)
     {
-
         $nests = $this->nestRepository->getWithCounts();
-        return view('admin.modmanager.view', compact('mod', 'nests'));
+        return view('modManager::mod.modAdminView', compact('mod', 'nests'));
     }
 
     /**
@@ -108,8 +111,8 @@ class AdminModController extends Controller
      */
     public function edit(ModModel $mod)
     {
-        $categories = Category::all();
-        return view('admin.modmanager.edit', compact('mod', 'categories'));
+        $categories = ModCategoryModel::all();
+        return view('modManager::mod.modAdminEdit', compact('mod', 'categories'));
     }
 
     /**
@@ -149,7 +152,7 @@ class AdminModController extends Controller
         $mod->update();
 
 
-        return redirect()->route('mod.show', $mod);
+        return redirect('admin/mod/view/'.$mod);
     }
 
     /**
@@ -162,7 +165,7 @@ class AdminModController extends Controller
     public function destroy(ModModel $mod)
     {
         $mod->delete();
-        return  redirect()->route('mod.index');
+        return  redirect('admin/mod');
     }
 
 }

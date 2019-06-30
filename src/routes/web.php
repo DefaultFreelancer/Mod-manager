@@ -7,7 +7,6 @@
  */
 
 
-
 Route::group(['prefix' => 'server/{server}/mods','namespace' => 'ItVision\ModManager\http', 'middleware' => ['web','auth']], function () {
     Route::get('/', 'ModController@index')->name('server.modmanager.inItVision\Mod\httpdex');
     Route::post('/install/{mod}', 'ModController@install')->name('server.modmanager.install');
@@ -17,5 +16,5 @@ Route::group(['prefix' => 'server/{server}/mods','namespace' => 'ItVision\ModMan
 
 Route::group(['prefix' => '/admin', 'namespace'=>'ItVision\ModManager\http\admin', 'middleware' => ['web','auth']], function (){
     Route::resource('mod', 'AdminModController');
-    Route::resource('category', 'ModCategoryController');
+    Route::resource('category','ModCategoryController');
 });

@@ -24,8 +24,6 @@ class MakeModMigration extends Migration
             $table->string('game');
             $table->string('foldername');
             $table->timestamps();
-
-
         });
     }
 

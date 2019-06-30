@@ -52,7 +52,7 @@ class ModCategoryController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect()->back();
+        return redirect('admin/category');
     }
 
     /**
@@ -83,7 +83,7 @@ class ModCategoryController extends Controller
         $category->title = $request->title;
         $category->description = $request->description;
         $category->update();
-        return redirect()->back();
+        return redirect('admin/category');
     }
     /**
      * Remove the specified resource from storage.

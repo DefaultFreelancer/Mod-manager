@@ -21,7 +21,7 @@ class ModCategoryController extends Controller
     public function index()
     {
         $categories = ModCategoryModel::all();
-        return view('modManager.categoryIndex', compact('categories'));
+        return view('modManager::categoryIndex', compact('categories'));
     }
 
     /**
@@ -31,7 +31,7 @@ class ModCategoryController extends Controller
      */
     public function create()
     {
-        return view('modManager.categoryCreate');
+        return view('modManager::categoryCreate');
     }
 
     /**
@@ -63,7 +63,7 @@ class ModCategoryController extends Controller
      */
     public function edit(ModCategoryModel $category)
     {
-        return view('modManager.categoryEdit', compact('category'));
+        return view('modManager::categoryEdit', compact('category'));
     }
 
     /**
@@ -83,9 +83,8 @@ class ModCategoryController extends Controller
         $category->title = $request->title;
         $category->description = $request->description;
         $category->update();
-        return redirect()->route('modManager.categoryIndex');
+        return redirect()->route('modManager::categoryIndex');
     }
-
     /**
      * Remove the specified resource from storage.
      *

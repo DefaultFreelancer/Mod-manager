@@ -13,3 +13,9 @@ Route::group(['prefix' => 'server/{server}/mods','namespace' => 'ItVision\ModMan
     Route::post('/install/{mod}', 'ModController@install')->name('server.modmanager.install');
     Route::post('/remove/{mod}', 'ModController@remove')->name('server.modmanager.remove');
 });
+
+
+Route::group(['prefix' => '/admin', 'namespace'=>'ItVision\ModManager\http\admin', 'middleware' => ['web','auth']], function (){
+    Route::resource('mod', 'ModController');
+    Route::resource('category', 'CategoryController');
+});

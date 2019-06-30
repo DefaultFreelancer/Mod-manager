@@ -16,6 +16,6 @@ Route::group(['prefix' => 'server/{server}/mods','namespace' => 'ItVision\ModMan
 
 
 Route::group(['prefix' => '/admin', 'namespace'=>'ItVision\ModManager\http\admin', 'middleware' => ['web','auth']], function (){
-    Route::resource('mod', 'ModController');
-    Route::resource('category', 'CategoryController');
+    Route::resource('mod', 'AdminModController');
+    Route::resource('category', 'ModCategoryController');
 });

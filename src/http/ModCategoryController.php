@@ -52,7 +52,7 @@ class ModCategoryController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect()->route('modManager.categoryIndex');
+        return redirect()->route('modManager::categoryIndex');
     }
 
     /**

@@ -49,7 +49,7 @@ class ModController extends Controller
     public function index(Request $request)
     {
         $server = $request->attributes->get('server');
-        $this->authorize('view-modmanager', $server);
+//        $this->authorize('view-modmanager', $server);
         $this->setRequest($request)->injectJavascript();
 
         $categories = Category::all();

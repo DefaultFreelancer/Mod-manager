@@ -14,12 +14,12 @@ class MakeModCategoryMigration extends Migration
      */
     public function up()
     {
-//        Schema::create('mod_categories', function (Blueprint $table) {
-//            $table->increments('id');
-//            $table->string('title');
-//            $table->text('description');
-//            $table->timestamps();
-//        });
+        Schema::create('mod_categories', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+            $table->text('description');
+            $table->timestamps();
+        });
     }
 
     /**

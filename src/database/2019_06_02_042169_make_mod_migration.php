@@ -25,6 +25,7 @@ class MakeModMigration extends Migration
             $table->string('foldername');
             $table->timestamps();
 
+
         });
     }
 

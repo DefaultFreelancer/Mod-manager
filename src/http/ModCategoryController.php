@@ -31,10 +31,6 @@ class ModCategoryController extends Controller
      */
     public function create()
     {
-        echo "<pre>";
-        print_r('asdfasdf');
-        die;
-
         return view('modManager::categoryCreate');
     }
 

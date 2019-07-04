@@ -23,6 +23,10 @@ class MakeModMigration extends Migration
             $table->string('author');
             $table->string('game');
             $table->string('foldername');
+
+            $table->unsignedInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('mod_categories')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

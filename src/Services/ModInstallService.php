@@ -9,7 +9,6 @@ use Illuminate\Database\ConnectionInterface;
 use Pterodactyl\Contracts\Repository\Daemon\ServerRepositoryInterface as DaemonServerRepositoryInterface;
 use Pterodactyl\Contracts\Repository\ServerRepositoryInterface;
 use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
-use Pterodactyl\Models\Custom\Mod;
 
 class ModInstallService
 {
@@ -50,9 +49,8 @@ class ModInstallService
      * @param  \Pterodactyl\models\custom\mod $mod
      * @throws DaemonConnectionException
      */
-    public function install($server, Mod $mod)
+    public function install($server, $mod)
     {
-
         try {
             $this->daemonServerRepository->setServer($server)->installMod([
                 'modName' => $mod->name,

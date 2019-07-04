@@ -9,6 +9,8 @@ class ModCategoryModel extends BaseModel
 
     protected $table = 'mod_categories';
 
+    protected $with = ['mods'];
+
     protected $fillable = [
         'title',
         'description'
@@ -19,7 +21,7 @@ class ModCategoryModel extends BaseModel
      */
     public function mods()
     {
-        return $this->hasMany(ModModel::class);
+        return $this->hasMany(ModModel::class,'category_id','id');
     }
 
 

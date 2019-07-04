@@ -58,11 +58,6 @@ class AdminModController extends Controller
      */
     public function store(Request $request)
     {
-//        echo "<pre>";
-//        print_r($request->all());
-//        print_r($request->input('name'));
-//        die;
-
         $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
@@ -130,12 +125,11 @@ class AdminModController extends Controller
             'version' => 'required',
             'link' => 'required',
             'path' => 'required',
-            'category_id' => 'exists:categories,id',
+            'category_id' => 'exists:mod_categories,id',
             'author' => 'required',
             'game' => 'required',
             'foldername' => 'required'
         ]);
-
 
         $mod->name = $request->input('name');
         $mod->description = $request->input('description');
@@ -151,8 +145,7 @@ class AdminModController extends Controller
 
         $mod->update();
 
-
-        return redirect('admin/mod/view/'.$mod);
+        return redirect('admin/mod/');
     }
 
     /**

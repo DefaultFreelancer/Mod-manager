@@ -19,10 +19,9 @@ class ManagerServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/views', 'modManager');
     }
 
+
     public function register()
     {
 
     }
-
-
 }

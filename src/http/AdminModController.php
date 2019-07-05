@@ -88,6 +88,7 @@ class AdminModController extends Controller
         return redirect('admin/mod');
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -101,6 +102,7 @@ class AdminModController extends Controller
         return view('modManager::mod.modAdminView', compact('mod', 'nests'));
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -113,7 +115,6 @@ class AdminModController extends Controller
         $eggs = Egg::get();
         return view('modManager::mod.modAdminEdit', compact('mod', 'categories','eggs'));
     }
-
 
 
     /**

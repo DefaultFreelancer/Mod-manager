@@ -7,6 +7,7 @@ namespace ItVision\ModManager\Services;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Database\ConnectionInterface;
 use ItVision\ModManager\models\ModModel;
+use ItVision\ModManager\Providers\ServerRepositoryProvider;
 use Pterodactyl\Contracts\Repository\Daemon\ServerRepositoryInterface as DaemonServerRepositoryInterface;
 use Pterodactyl\Contracts\Repository\ServerRepositoryInterface;
 use Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException;
@@ -37,7 +38,7 @@ class ModRemoveService
      */
     public function __construct(
         ConnectionInterface $database,
-        DaemonServerRepositoryInterface $daemonServerRepository,
+        ServerRepositoryProvider $daemonServerRepository,
         ServerRepositoryInterface $repository
     ) {
         $this->daemonServerRepository = $daemonServerRepository;

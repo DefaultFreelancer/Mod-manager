@@ -10,6 +10,7 @@ use Prologue\Alerts\AlertsMessageBag;
 use Pterodactyl\Http\Controllers\Controller;
 use Pterodactyl\Models\Custom\Category;
 use Pterodactyl\Contracts\Repository\NestRepositoryInterface;
+use Pterodactyl\Models\Egg;
 
 class AdminModController extends Controller
 {
@@ -47,7 +48,9 @@ class AdminModController extends Controller
     public function create()
     {
         $categories = ModCategoryModel::all();
-        return view('modManager::mod.modAdminCreate', compact('categories'));
+        $eggs = Egg::get();
+
+        return view('modManager::mod.modAdminCreate', ['categories' => $categories, 'eggs' => $eggs]);
     }
 
     /**

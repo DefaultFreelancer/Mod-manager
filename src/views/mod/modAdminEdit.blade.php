@@ -64,7 +64,11 @@
 
                         <div class="form-group">
                             <label for="game" class="form-label">Game</label>
-                            <input type="text" id="game" name="game" value="{{ $mod->game }}" class="form-control" />
+                            <select class="form-control" id="game" name="game">
+                                @foreach($eggs as $egg)
+                                    <option value="{{ $egg->id }}" @if($mod->game == $egg->id) selected @endif>{{ $egg->name }}</option>
+                                @endforeach
+                            </select>
                             <p class="text-muted small">The eggID of the egg the mod should appear under.</p>
                         </div>
 

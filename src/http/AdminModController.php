@@ -110,8 +110,11 @@ class AdminModController extends Controller
     public function edit(ModModel $mod)
     {
         $categories = ModCategoryModel::all();
-        return view('modManager::mod.modAdminEdit', compact('mod', 'categories'));
+        $eggs = Egg::get();
+        return view('modManager::mod.modAdminEdit', compact('mod', 'categories','eggs'));
     }
+
+
 
     /**
      * Update the specified resource in storage.

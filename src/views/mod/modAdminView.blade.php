@@ -37,7 +37,7 @@
                             <td>{{ $mod->version }}</td>
                             <td>{{ $mod->category->title }}</td>
                             <td>{{ $mod->foldername }}</td>
-                            <td>{{ $mod->game }}</td>
+                            <td>{{ $mod->getEggNameById($mod->game) }}</td>
                             <td>{{ $mod->author }}</td>
                             <td><a href="{{ route('mod.edit', $mod) }}" class="btn btn-success btn-sm">Edit</a> </td>
                             <td><form action="{{ route('mod.destroy', $mod) }}" method="POST">

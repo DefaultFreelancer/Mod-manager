@@ -4,6 +4,8 @@
 namespace ItVision\ModManager\models;
 
 
+use Pterodactyl\Models\Egg;
+
 class ModModel extends BaseModel
 {
     protected $table = 'mods';
@@ -29,5 +31,11 @@ class ModModel extends BaseModel
         return $this->belongsTo(ModCategoryModel::class);
     }
 
+
+    public function getEggNameById($id)
+    {
+        $egg = Egg::find($id);
+        return $egg->name;
+    }
 
 }

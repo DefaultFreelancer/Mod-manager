@@ -103,6 +103,6 @@ class ModController extends Controller
         $this->ModRemove->remove($server, $mod);
         $this->alert->success('Mod was uninstalled successfully.')->flash();
 
-        return redirect()->route('modManager.index', $server->uuidShort)->with('removed', 'Mod Removed');
+        return redirect()->route('server.modmanager.index', $server->uuidShort)->with('removed', 'Mod Removed');
     }
 }

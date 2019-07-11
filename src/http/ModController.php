@@ -5,6 +5,7 @@ namespace ItVision\ModManager\http;
 
 
 use Illuminate\Http\Request;
+use ItVision\ModManager\models\GameModRelation;
 use ItVision\ModManager\models\ModCategoryModel;
 use ItVision\ModManager\models\ModModel;
 use ItVision\ModManager\Services\ModInstallService;
@@ -70,8 +71,18 @@ class ModController extends Controller
             ]
         ]);
 
+        $games = [];
+        $g = [];
         $categories = ModCategoryModel::all();
-        return view('modManager::client.index', ['categories' => $categories, 'server' => $server, 'node' => $server->node]);
+        $relation = GameModRelation::where(['egg_id' => $server->egg_id])->get();
+        foreach ($relation as $item){
+            array_push($games, ModModel::find($item->mod_id));
+        }
+        foreach ($games as $game){
+            if(!in_array($game->category, $g))
+                array_push($g, $game->category);
+        }
+        return view('modManager::client.index', ['categories' => $g, 'server' => $server, 'node' => $server->node]);
     }
 
     /**

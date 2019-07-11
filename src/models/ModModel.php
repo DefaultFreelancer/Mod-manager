@@ -64,4 +64,12 @@ class ModModel extends BaseModel
     }
 
 
+    public function doesItHave($id)
+    {
+        if(GameModRelation::where(['egg_id' => $id, 'mod_id' => $this->id])->first()){
+            return true;
+        }
+        return false;
+    }
+
 }

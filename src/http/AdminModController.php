@@ -142,15 +142,15 @@ class AdminModController extends Controller
     public function update(Request $request, ModModel $mod)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required',
-            'version' => 'required',
-            'link' => 'required',
-            'path' => 'required',
-            'category_id' => 'exists:mod_categories,id',
-            'author' => 'required',
-            'games' => 'required',
-            'foldername' => 'required'
+            'name'          => 'required',
+            'description'   => 'required',
+            'version'       => 'required',
+            'link'          => 'required',
+            'path'          => 'required',
+            'category_id'   => 'exists:mod_categories,id',
+            'author'        => 'required',
+            'games'         => 'required',
+            'foldername'    => 'required'
         ]);
 
         $mod->name = $request->input('name');
@@ -158,16 +158,11 @@ class AdminModController extends Controller
         $mod->version = $request->input('version');
         $mod->link = $request->input('link');
         $mod->path = $request->input('path');
-
         $mod->category_id = $request->input('category_id');
-
-
         $mod->author = $request->input('author');
         $mod->foldername = $request->input('foldername');
 
-
         $mod->updateRelations($request);
-
         $mod->update();
 
         return redirect('admin/mod');

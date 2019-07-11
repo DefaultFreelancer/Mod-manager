@@ -20,8 +20,8 @@
 
             <div class="col">
                 @foreach($categories as $category)
-                    @foreach($category->mods as $categg)
-                        @if($categg->game == $server->egg_id)
+                    {{--@foreach($category->mods as $categg)--}}
+                        {{--@if($categg->game == $server->egg_id)--}}
                             <div class="box box-primary">
                                 <div class="box-header with-border">
                                     <h3 class="box-title">{{ $category->title }}</h3>
@@ -37,11 +37,11 @@
                                             <th class="text-center col-xs-2">Remove</th>
                                         </tr>
                                         @foreach($category->mods as $mod)
-                                            @if($mod->game == $server->egg_id)
+                                            @if($mod->doesItHave($server->egg_id))
                                                 <tr>
-                                                    <td class="middle col-xs-2">{{$mod->name}}</td>
-                                                    <td class="middle col-xs-1"><code>{{$mod->version}}</code></td>
-                                                    <td class="col-xs-7">{{$mod->description}}</td>
+                                                    <td class="middle col-xs-2">{{ $mod->name }}</td>
+                                                    <td class="middle col-xs-1"><code>{{ $mod->version }}</code></td>
+                                                    <td class="col-xs-7">{{ $mod->description }}</td>
                                                     <td class="middle text-center col-xs-2">
                                                         <form action="{{ url('server/'.$server->uuidShort.'/mods/install/'.$mod->id) }}" id="function-install{{$mod->id}}" method="POST">
                                                             @csrf
@@ -72,7 +72,7 @@
                                                             if (isConfirm) document.getElementById('function-install{{$mod->id}}').submit();
                                                         });
                                                     };
-
+                                                    //
                                                     document.getElementById('function-delete{{$mod->id}}').onclick = function(){
                                                         console.log(document.getElementById('function-delete{{$mod->id}}'));
                                                         swal({
@@ -94,8 +94,8 @@
                                     </table>
                                 </div>
                             </div>
-                        @endif
-                    @endforeach
+                        {{--@endif--}}
+                    {{--@endforeach--}}
                 @endforeach
             </div>
         </div>

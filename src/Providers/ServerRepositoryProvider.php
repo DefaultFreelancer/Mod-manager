@@ -9,19 +9,13 @@ use Psr\Http\Message\ResponseInterface;
 
 class ServerRepositoryProvider extends ServerRepository
 {
-
-    public function installMod(array $data = null): ResponseInterface
-    {
-        return $this->getHttpClient()->request('POST', 'server/installmod', [
-            'json' => $data ?? [],
-        ]);
+    
+    public function installMod(array $data = null): ResponseInterface {
+        return $this->getHttpClient()->request('POST', 'server/installmod', [ 'json' => $data ?? [] ]);
     }
 
-    public function removeMod(array $data = null): ResponseInterface
-    {
-        return $this->getHttpClient()->request('POST', 'server/removemod', [
-            'json' => $data ?? [],
-        ]);
+    public function removeMod(array $data = null): ResponseInterface {
+        return $this->getHttpClient()->request('POST', 'server/removemod', [ 'json' => $data ?? [] ]);
     }
 
 

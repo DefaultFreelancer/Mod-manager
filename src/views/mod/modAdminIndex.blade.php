@@ -46,7 +46,11 @@
                                 <td>{{ $mod->version }}</td>
                                 <td>{{ $mod->category->title }}</td>
                                 <td>{{ $mod->foldername }}</td>
-                                <td>{{ $mod->getEggNameById($mod->game) }}</td>
+                                <td>
+                                    @foreach($mod->games() as $game)
+                                        {{ $game->name }}<br>
+                                    @endforeach
+                                </td>
                                 <td>{{ $mod->author }}</td>
                                 <td><a href="{{ route('mod.edit', $mod) }}" class="btn btn-success btn-sm">Edit</a> </td>
                                 <td>

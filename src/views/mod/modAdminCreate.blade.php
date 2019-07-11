@@ -63,9 +63,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="game" class="form-label">Game</label>
-                            <select class="form-control" id="game" name="game">
-                                @foreach($eggs as $egg)
+                            <label for="multyGames" class="control-label">Game`s</label>
+                            <select id="multyGames" name="games[]" multiple class="form-control">
+                                @foreach($eggs as $key => $egg)
                                     <option value="{{ $egg->id }}">{{ $egg->name }}</option>
                                 @endforeach
                             </select>
@@ -97,4 +97,7 @@
 
 @section('footer-scripts')
     @parent
+    <script>
+        $('#multyGames').select2();
+    </script>
 @endsection

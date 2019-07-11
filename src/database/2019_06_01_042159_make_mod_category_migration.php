@@ -12,23 +12,23 @@ class MakeModCategoryMigration extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('mod_categories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->text('description');
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('mod_categories');
-    }
+//    public function up()
+//    {
+//        Schema::create('mod_categories', function (Blueprint $table) {
+//            $table->increments('id');
+//            $table->string('title');
+//            $table->text('description');
+//            $table->timestamps();
+//        });
+//    }
+//
+//    /**
+//     * Reverse the migrations.
+//     *
+//     * @return void
+//     */
+//    public function down()
+//    {
+//        Schema::dropIfExists('mod_categories');
+//    }
 }

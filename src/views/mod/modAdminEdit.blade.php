@@ -63,10 +63,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="game" class="form-label">Game</label>
-                            <select class="form-control" id="game" name="game">
+                            <label for="multyGames" class="control-label">Game`s</label>
+                            <select id="multyGames" name="games[]" multiple class="form-control">
                                 @foreach($eggs as $egg)
-                                    <option value="{{ $egg->id }}" @if($mod->game == $egg->id) selected @endif>{{ $egg->name }}</option>
+                                    <option value="{{ $egg->id }}" @if(in_array($egg->id, $relations)) selected @endif>{{ $egg->name }}</option>
                                 @endforeach
                             </select>
                             <p class="text-muted small">The eggID of the egg the mod should appear under.</p>
@@ -102,4 +102,7 @@
 
 @section('footer-scripts')
     @parent
+    <script>
+        $('#multyGames').select2();
+    </script>
 @endsection

@@ -97,8 +97,8 @@ class ModController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Pterodactyl\Exceptions\Http\Connection\DaemonConnectionException
      */
-    public function remove(Request $request, $server, ModModel $mod) {
-
+    public function remove(Request $request, $server, ModModel $mod)
+    {
         $server = Server::where(['uuidShort' => $server])->first();
         $this->ModRemove->remove($server, $mod);
         $this->alert->success('Mod was uninstalled successfully.')->flash();

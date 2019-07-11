@@ -4,6 +4,7 @@
 namespace ItVision\ModManager\http\admin;
 
 use Illuminate\Http\Request;
+use ItVision\ModManager\models\GameModRelation;
 use ItVision\ModManager\models\ModCategoryModel;
 use ItVision\ModManager\models\ModModel;
 use Prologue\Alerts\AlertsMessageBag;
@@ -69,21 +70,28 @@ class AdminModController extends Controller
             'path' => 'required',
             'category_id' => 'exists:mod_categories,id',
             'author' => 'required',
-            'game' => 'required',
+            'games' => 'required',
             'foldername' => 'required'
         ]);
 
-        ModModel::create([
+        $mod = ModModel::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'version' => $request->input('version'),
             'link' => $request->input('link'),
             'path' => $request->input('path'),
             'category_id' => $request->input('category_id'),
-            'game' => $request->input('game'),
             'author' => $request->input('author'),
             'foldername' => $request->input('foldername')
         ]);
+
+        foreach ($request['games'] as $game)
+        {
+            GameModRelation::create([
+                'mod_id' => $mod->id,
+                'egg_id' => $game
+            ]);
+        }
 
         return redirect('admin/mod');
     }
@@ -113,7 +121,14 @@ class AdminModController extends Controller
     {
         $categories = ModCategoryModel::all();
         $eggs = Egg::get();
-        return view('modManager::mod.modAdminEdit', compact('mod', 'categories','eggs'));
+        $relation = GameModRelation::where(['mod_id' => $mod->id])->get();
+        $relations = [];
+        foreach ($relation as $item)
+        {
+            array_push($relations, $item->egg_id);
+        }
+
+        return view('modManager::mod.modAdminEdit', compact('mod', 'categories','eggs','relations'));
     }
 
 
@@ -134,7 +149,7 @@ class AdminModController extends Controller
             'path' => 'required',
             'category_id' => 'exists:mod_categories,id',
             'author' => 'required',
-            'game' => 'required',
+            'games' => 'required',
             'foldername' => 'required'
         ]);
 
@@ -146,13 +161,16 @@ class AdminModController extends Controller
 
         $mod->category_id = $request->input('category_id');
 
-        $mod->game = $request->input('game');
+
         $mod->author = $request->input('author');
         $mod->foldername = $request->input('foldername');
 
+
+        $mod->updateRelations($request);
+
         $mod->update();
 
-        return redirect('admin/mod/');
+        return redirect('admin/mod');
     }
 
     /**
@@ -164,6 +182,7 @@ class AdminModController extends Controller
      */
     public function destroy(ModModel $mod)
     {
+        GameModRelation::where(['mod_id' => $mod->id])->delete();
         $mod->delete();
         return  redirect('admin/mod');
     }

@@ -20,82 +20,78 @@
 
             <div class="col">
                 @foreach($categories as $category)
-                    {{--@foreach($category->mods as $categg)--}}
-                        {{--@if($categg->game == $server->egg_id)--}}
-                            <div class="box box-primary">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">{{ $category->title }}</h3>
-                                </div>
-                                <div class="box-body table-responsive no-padding">
-                                    <table class="table table-hover">
-                                        <tbody>
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{{ $category->title }}</h3>
+                        </div>
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
+                                <tbody>
+                                <tr>
+                                    <th class="col-xs-2">Name</th>
+                                    <th class="col-xs-1">Version</th>
+                                    <th class="col-xs-7">Description</th>
+                                    <th class="text-center col-xs-2">Install</th>
+                                    <th class="text-center col-xs-2">Remove</th>
+                                </tr>
+                                @foreach($category->mods as $mod)
+                                    @if($mod->doesItHave($server->egg_id))
                                         <tr>
-                                            <th class="col-xs-2">Name</th>
-                                            <th class="col-xs-1">Version</th>
-                                            <th class="col-xs-7">Description</th>
-                                            <th class="text-center col-xs-2">Install</th>
-                                            <th class="text-center col-xs-2">Remove</th>
+                                            <td class="middle col-xs-2">{{ $mod->name }}</td>
+                                            <td class="middle col-xs-1"><code>{{ $mod->version }}</code></td>
+                                            <td class="col-xs-7">{{ $mod->description }}</td>
+                                            <td class="middle text-center col-xs-2">
+                                                <form action="{{ url('server/'.$server->uuidShort.'/mods/install/'.$mod->id) }}" id="function-install{{$mod->id}}" method="POST">
+                                                    @csrf
+                                                    @method('POST')
+                                                    <button type="button" class="btn btn-primary btn-sm">Install Mod</button>
+                                                </form>
+                                            </td>
+                                            <td class="middle text-center col-xs-2">
+                                                <form action="{{ url('server/'.$server->uuidShort.'/mods/remove/'.$mod->id) }}" id="function-delete{{$mod->id}}" method="POST">
+                                                    @csrf
+                                                    @method('POST')
+                                                    <button type="button" class="btn btn-danger btn-sm">Uninstall Mod</button>
+                                                </form>
+                                            </td>
                                         </tr>
-                                        @foreach($category->mods as $mod)
-                                            @if($mod->doesItHave($server->egg_id))
-                                                <tr>
-                                                    <td class="middle col-xs-2">{{ $mod->name }}</td>
-                                                    <td class="middle col-xs-1"><code>{{ $mod->version }}</code></td>
-                                                    <td class="col-xs-7">{{ $mod->description }}</td>
-                                                    <td class="middle text-center col-xs-2">
-                                                        <form action="{{ url('server/'.$server->uuidShort.'/mods/install/'.$mod->id) }}" id="function-install{{$mod->id}}" method="POST">
-                                                            @csrf
-                                                            @method('POST')
-                                                            <button type="button" class="btn btn-primary btn-sm">Install Mod</button>
-                                                        </form>
-                                                    </td>
-                                                    <td class="middle text-center col-xs-2">
-                                                        <form action="{{ url('server/'.$server->uuidShort.'/mods/remove/'.$mod->id) }}" id="function-delete{{$mod->id}}" method="POST">
-                                                            @csrf
-                                                            @method('POST')
-                                                            <button type="button" class="btn btn-danger btn-sm">Uninstall Mod</button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                <script>
-                                                    document.getElementById('function-install{{$mod->id}}').onclick = function(){
-                                                        console.log(document.getElementById('function-install{{$mod->id}}'));
-                                                        swal({
-                                                            title: "Are you sure?",
-                                                            text: "Our panel will immediately begin installing this mod.",
-                                                            type: "info",
-                                                            showCancelButton: true,
-                                                            confirmButtonColor: "#3085d6",
-                                                            confirmButtonText: "Yes, install it!",
-                                                            closeOnConfirm: true
-                                                        }, function(isConfirm){
-                                                            if (isConfirm) document.getElementById('function-install{{$mod->id}}').submit();
-                                                        });
-                                                    };
-                                                    //
-                                                    document.getElementById('function-delete{{$mod->id}}').onclick = function(){
-                                                        console.log(document.getElementById('function-delete{{$mod->id}}'));
-                                                        swal({
-                                                            title: "Are you sure?",
-                                                            text: "Our panel will immediately begin uninstalling this mod.",
-                                                            type: "warning",
-                                                            showCancelButton: true,
-                                                            confirmButtonColor: "#3085d6",
-                                                            confirmButtonText: "Yes, delete it!",
-                                                            closeOnConfirm: true
-                                                        }, function(isConfirm){
-                                                            if (isConfirm) document.getElementById('function-delete{{$mod->id}}').submit();
-                                                        });
-                                                    };
-                                                </script>
-                                            @endif
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        {{--@endif--}}
-                    {{--@endforeach--}}
+                                        <script>
+                                            document.getElementById('function-install{{$mod->id}}').onclick = function(){
+                                                console.log(document.getElementById('function-install{{$mod->id}}'));
+                                                swal({
+                                                    title: "Are you sure?",
+                                                    text: "Our panel will immediately begin installing this mod.",
+                                                    type: "info",
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: "#3085d6",
+                                                    confirmButtonText: "Yes, install it!",
+                                                    closeOnConfirm: true
+                                                }, function(isConfirm){
+                                                    if (isConfirm) document.getElementById('function-install{{$mod->id}}').submit();
+                                                });
+                                            };
+                                            //
+                                            document.getElementById('function-delete{{$mod->id}}').onclick = function(){
+                                                console.log(document.getElementById('function-delete{{$mod->id}}'));
+                                                swal({
+                                                    title: "Are you sure?",
+                                                    text: "Our panel will immediately begin uninstalling this mod.",
+                                                    type: "warning",
+                                                    showCancelButton: true,
+                                                    confirmButtonColor: "#3085d6",
+                                                    confirmButtonText: "Yes, delete it!",
+                                                    closeOnConfirm: true
+                                                }, function(isConfirm){
+                                                    if (isConfirm) document.getElementById('function-delete{{$mod->id}}').submit();
+                                                });
+                                            };
+                                        </script>
+                                    @endif
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 @endforeach
             </div>
         </div>

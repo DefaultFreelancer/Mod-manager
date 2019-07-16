@@ -19,7 +19,6 @@ class ModModel extends BaseModel
         'game',
         'foldername'
     ];
-    // only one mod can be in a category
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -29,11 +28,17 @@ class ModModel extends BaseModel
         return $this->belongsTo(ModCategoryModel::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function gamesRelation()
     {
         return $this->hasMany(GameModRelation::class, 'mod_id', 'id');
     }
 
+    /**
+     * @return array
+     */
     public function games()
     {
         $return = [];
@@ -44,13 +49,19 @@ class ModModel extends BaseModel
         return $return;
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getEggNameById($id)
     {
         $egg = Egg::find($id);
         return $egg->name;
     }
 
-
+    /**
+     * @param $request
+     */
     public function updateRelations($request)
     {
         if(count($request['games']))
@@ -63,7 +74,10 @@ class ModModel extends BaseModel
         }
     }
 
-
+    /**
+     * @param $id
+     * @return bool
+     */
     public function doesItHave($id)
     {
         if(GameModRelation::where(['egg_id' => $id, 'mod_id' => $this->id])->first()){
